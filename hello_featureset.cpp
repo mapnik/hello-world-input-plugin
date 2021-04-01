@@ -1,6 +1,6 @@
 // mapnik
 #include <mapnik/feature_factory.hpp>
-#include <mapnik/value_types.hpp>
+#include <mapnik/value/types.hpp>
 
 // boost
 
@@ -56,10 +56,10 @@ mapnik::feature_ptr hello_featureset::next()
         // to dynamically generate a fake line
         mapnik::geometry::line_string<double> line;
         line.reserve(4);
-        line.add_coord(box_.minx(),box_.maxy());
-        line.add_coord(box_.maxx(),box_.maxy());
-        line.add_coord(box_.maxx(),box_.miny());
-        line.add_coord(box_.minx(),box_.miny());
+        line.push_back({box_.minx(),box_.maxy()});
+        line.push_back({box_.maxx(),box_.maxy()});
+        line.push_back({box_.maxx(),box_.miny()});
+        line.push_back({box_.minx(),box_.miny()});
         feature->set_geometry(std::move(line));
         return feature;
     }
