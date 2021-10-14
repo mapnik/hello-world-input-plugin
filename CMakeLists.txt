@@ -10,19 +10,17 @@ add_library(hello-world-input-plugin SHARED
     hello_featureset.cpp
 )
 
-target_link_libraries(hello-world-input-plugin PRIVATE 
-    mapnik::core 
-    mapnik::mapnik
+target_link_libraries(hello-world-input-plugin PRIVATE mapnik::mapnik)
+
+set_target_properties(hello-world-input-plugin PROPERTIES 
+    PREFIX ""
+    OUTPUT_NAME "hello"
+    SUFFIX ".input"
 )
 
-set_target_properties(hello-world-input-plugin PROPERTIES PREFIX "")
-set_target_properties(hello-world-input-plugin PROPERTIES OUTPUT_NAME "hello-world")
-set_target_properties(hello-world-input-plugin PROPERTIES SUFFIX ".input")
-
 if(BUILD_TEST)
+    enable_testing()
     add_subdirectory(test)
 endif()
 
-install(TARGETS hello-world-input-plugin 
-    RUNTIME DESTINATION bin/plugins
-)
+install(TARGETS hello-world-input-plugin RUNTIME DESTINATION bin/plugins)

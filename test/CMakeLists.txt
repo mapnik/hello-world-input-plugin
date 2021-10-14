@@ -10,17 +10,19 @@ endif()
 FetchContent_Declare(
   Catch2
   GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-  GIT_TAG        v2.13.1)
-
+  GIT_TAG        v2.13.7
+)
 FetchContent_MakeAvailable(Catch2)
 
 add_executable(input-test unit.cpp)
 target_link_libraries(input-test PRIVATE 
-    Catch2::Catch2
-    mapnik::core 
-    mapnik::mapnik
+  Catch2::Catch2
+  mapnik::mapnik
+)
+set_target_properties(input-test PROPERTIES
+  RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}
 )
 
 include(CTest)
-include(${catch2_SOURCE_DIR}/contrib/Catch.cmake)
+include("${catch2_SOURCE_DIR}/contrib/Catch.cmake")
 catch_discover_tests(input-test)
